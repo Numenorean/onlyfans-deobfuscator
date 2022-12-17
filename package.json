@@ -1,0 +1,27 @@
+{
+  "name": "onlyfans-deobfuscator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "deobfuscator.js",
+  "scripts": {
+    "build": "npx tsc -w",
+    "start": "node ./build/deobfuscator.js", 
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.20.5",
+    "@babel/preset-typescript": "^7.18.6",
+    "@babel/traverse": "^7.20.5",
+    "@babel/types": "^7.20.5",
+
+    "@types/babel__generator": "^7.6.4",
+    "@types/babel__traverse": "^7.18.3",
+    "@types/js-beautify": "^1.13.3",
+    "@types/node": "^18.11.15",
+
+    "js-beautify": "^1.14.7",
+    "typescript": "^4.9.4"
+  }
+}
