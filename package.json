@@ -5,7 +5,8 @@
   "main": "deobfuscator.js",
   "scripts": {
     "build": "npx tsc -w",
-    "start": "node ./build/deobfuscator.js", 
+    "deobfuscate": "node ./build/deobfuscator.js",
+    "find-consts": "node ./build/checksum_finder.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
