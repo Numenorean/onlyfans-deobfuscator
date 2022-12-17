@@ -4,24 +4,11 @@ import * as t from "@babel/types";
 import generate from "@babel/generator";
 import beautify from "js-beautify";
 import { readFileSync, writeFile } from "fs";
-import path from 'path';
 import vm from "vm";
-
-const STRINGS_FUNC = "e";
-const DECRYPT_FUNC = "k";
-const DECRYPT_MAP = "n";
-const MAIN_DECRYPT_FUNC = "d";
-const MAIN_DECRYPT_FUNC2 = "t";
 
 const binop = ["+", "-", "/", "%", "*", "**", "&", "|", ">>", ">>>", "<<", "^", "==", "===", "!=", "!==", "in", "instanceof", ">", "<", ">=", "<=", "|>"] as const;
 type BinaryOperator = (typeof binop)[number];
 const isBinaryOperator = (x: any): x is BinaryOperator => binop.includes(x);
-
-/*const STRINGS_FUNC = "f";
-const DECRYPT_FUNC = "e";
-const DECRYPT_MAP = "n";
-const MAIN_DECRYPT_FUNC = "f";
-const MAIN_DECRYPT_FUNC2 = "o";*/
 
 class DecryptionFunctions {
 	static checkObfuscatedStrings(path: NodePath<t.FunctionDeclaration>, vmContext: vm.Context): string | undefined {
