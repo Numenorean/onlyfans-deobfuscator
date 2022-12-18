@@ -298,16 +298,28 @@ function deobfuscate(source: string) {
     let funcSecondDecode: [string, Binding] | undefined;
     let foundShiftFunc: boolean | undefined;
 
-    const parseDecryptFunctions = {
+    const parseObfuscatedStrings = {
         FunctionDeclaration(path: NodePath<t.FunctionDeclaration>) {
             let funcName = DecryptionFunctions.checkObfuscatedStrings(path, decryptCtx);
             if (funcName) {
                 funcObfStrings = funcName;
+                path.stop();
                 return;
             }
+        }
+    };
 
+    traverse(ast, parseObfuscatedStrings);
+
+    if (!funcObfStrings) {
+        console.error("Strings was not found!")
+        return;
+    }
+
+    const parseDecryptFunctions = {
+        FunctionDeclaration(path: NodePath<t.FunctionDeclaration>) {
             if (funcObfStrings) {
-                funcName = DecryptionFunctions.checkDecodeString(path, decryptCtx, funcObfStrings);
+                const funcName = DecryptionFunctions.checkDecodeString(path, decryptCtx, funcObfStrings);
 
                 if (funcName) {
                     funcDecodeString = funcName;
@@ -339,7 +351,7 @@ function deobfuscate(source: string) {
 
     traverse(ast, parseDecryptFunctions);
 
-    if (!funcObfStrings || !funcDecodeString || !funcFirstDecode || !funcSecondDecode || !foundShiftFunc) {
+    if (!funcDecodeString || !funcFirstDecode || !funcSecondDecode || !foundShiftFunc) {
         console.error("Some decryption stuff was not found!")
         return;
     }
